@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'ar.esqr.diagauto'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'ar.esqr.diagauto'
+        minSdk 29
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+    }
+
+    // Misma firma fija que G75 Macro: cada versión nueva se instala encima de la anterior
+    signingConfigs {
+        fija {
+            storeFile file("${rootDir}/firma.keystore")
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug { signingConfig signingConfigs.fija }
+        release {
+            signingConfig signingConfigs.fija
+            minifyEnabled false
+        }
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
